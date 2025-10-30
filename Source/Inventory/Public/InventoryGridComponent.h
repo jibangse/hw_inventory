@@ -12,9 +12,7 @@
 #include "InventoryGridComponent.generated.h"
 
 class UAbilitySystemComponent;
-//class FGameplayEffectHandle;
 
-/** 런타임 아이템(복제 쉬우라고 USTRUCT로 구현) */
 USTRUCT(BlueprintType)
 struct INVENTORY_API FInventoryItem
 {
@@ -39,7 +37,6 @@ struct INVENTORY_API FInventoryItem
     bool  IsValid() const { return Data && Stack > 0; }
 };
 
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class INVENTORY_API UInventoryGridComponent : public UActorComponent
 {
@@ -52,14 +49,11 @@ public:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Inventory") int32 GridWidth = 10;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Inventory") int32 GridHeight = 6;
 
-    /** 간단 복제: RepNotify TArray */
+    /** 간단 복제: RepNotify TArray (FastArray 없이) */
     UPROPERTY(ReplicatedUsing = OnRep_Items)
     TArray<FInventoryItem> Items;
 
     UFUNCTION() void OnRep_Items();
-
-    UFUNCTION(BlueprintPure)
-    const TArray<FInventoryItem>& GetItems() const { return Items; }
 
 protected:
 	// Called when the game starts

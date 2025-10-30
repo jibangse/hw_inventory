@@ -14,13 +14,12 @@ UInventoryGridComponent::UInventoryGridComponent()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 	SetIsReplicatedByDefault(true);
-
-	// ...
 }
 
 
 void UInventoryGridComponent::OnRep_Items()
 {
+	// UI가 이 이벤트에 바인딩해서 그리드 리빌드하면 됨
 }
 
 // Called when the game starts
@@ -35,7 +34,7 @@ void UInventoryGridComponent::BeginPlay()
 void UInventoryGridComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const
 {
 	Super::GetLifetimeReplicatedProps(Out);
-	DOREPLIFETIME(UInventoryGridComponent, Items);
+	//DOREPLIFETIME(UInventoryGridComponent, Items);
 }
 
 bool UInventoryGridComponent::CanPlaceAt(const FInventoryItem& C, const FGuid* Ignore) const
